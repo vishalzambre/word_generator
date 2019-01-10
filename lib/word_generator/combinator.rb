@@ -10,25 +10,34 @@ module WordGenerator
 
     # Generate possible combination from dictionary
     def generate
+      time_start = Time.now()
       digits = number.to_i.digits.reverse
       characters = digits.map { |digit| letters[digit] }
-      possible_combinations = {}
 
       # Start loop from 3 to 7 to avoid less than 3
-      (WORD_MIN_LENGTH..(WORD_MAX_LENGTH - WORD_MIN_LENGTH)).each do |length|
-        first_word = characters[0..(length-1)]
-        second_word = characters[length..-1]
+      possible_combinations = (WORD_MIN_LENGTH..(WORD_MAX_LENGTH - WORD_MIN_LENGTH)).flat_map do |length|
+        # Split characters in first and second combination based on start and end input
+        first_combination = characters[0..(length-1)]
+        second_combination = characters[length..-1]
 
-        first_word = first_word.shift.product(*first_word).map(&:join)
-        second_word = second_word.shift.product(*second_word).map(&:join)
-        possible_combinations[length] = [(first_word & dictionary[length]), (second_word & dictionary[WORD_MAX_LENGTH - length])]
-      end
+        # take first tuple and generate combination against array
+        first_combination = first_combination.shift.product(*first_combination).map(&:join)
+        second_combination = second_combination.shift.product(*second_combination).map(&:join)
 
-      possible_combinations.flat_map do |_, combinataions|
-        combinataions.first.product(combinataions.last).map do |combo_words|
-          combo_words
-        end
+        # Get matching from dictionary
+        first_combination = first_combination & dictionary[length]
+        second_combination = second_combination & dictionary[WORD_MAX_LENGTH - length]
+
+        # Combine Array
+        first_combination.product(second_combination).map { |word| word }
       end
+      # Find for complete 10 character word
+      complete_word = characters.shift.product(*characters).map(&:join) & dictionary[WORD_MAX_LENGTH]
+      possible_combinations << complete_word if complete_word.any?
+
+      time_end = Time.now()
+      puts "Time #{time_end.to_f - time_start.to_f}"
+      possible_combinations
     end
   end
 end

@@ -13,4 +13,8 @@ class WordGeneratorTest < Minitest::Test
   def test_that_dictionary_is_loaded
     assert @word_generator.dictionary.any?
   end
+
+  def test_that_dictionary_must_be_a_hash
+    assert @word_generator.dictionary.is_a?(Hash)
+  end
 end

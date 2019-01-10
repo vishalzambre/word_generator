@@ -4,7 +4,7 @@ module WordGenerator
   class NumberToWord
     include WordGenerator
 
-    attr_reader :number
+    attr_accessor :number
 
     def combinatons
       @_combinatons = combinator.generate

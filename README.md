@@ -35,7 +35,31 @@ To read input from console
 
 run `WordGenerator::NumberToWord.new.combinatons`
 
-
+Output with time
+```
+2.6.0 :001 > WordGenerator::Combinator.new(6686787825).generate
+Time 0.31345438957214355
+ => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
+2.6.0 :002 > WordGenerator::Combinator.new(6686787825).generate
+Time 0.28060483932495117
+ => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
+2.6.0 :003 > WordGenerator::Combinator.new(6686787825).generate
+Time 0.280820369720459
+ => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
+2.6.0 :004 > WordGenerator::Combinator.new(6686787825).generate
+Time 0.2726399898529053
+ => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
+2.6.0 :005 > WordGenerator::Combinator.new(6686787825).generate
+Time 0.24427533149719238
+ => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
+2.6.0 :006 > WordGenerator::Combinator.new(6686787825).generate
+Time 0.2448413372039795
+ => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
+2.6.0 :007 > WordGenerator::Combinator.new(6686787825).generate
+Time 0.242051362991333
+ => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
+2.6.0 :008 >
+```
 For Benchmark
 
 ```ruby
