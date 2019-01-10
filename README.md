@@ -58,7 +58,11 @@ Time 0.2448413372039795
 2.6.0 :007 > WordGenerator::Combinator.new(6686787825).generate
 Time 0.242051362991333
  => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
-2.6.0 :008 >
+2.6.0 :008 > WordGenerator::Combinator.new(2282668687).generate
+Time 0.28045105934143066
+ => [["act", "amounts"], ["act", "contour"], ["bat", "amounts"], ["bat", "contour"], ["cat", "amounts"], ["cat", "contour"], ["acta", "mounts"], ["catamounts"]]
+2.6.0 :009 >
+
 ```
 For Benchmark
 
