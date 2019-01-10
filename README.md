@@ -22,7 +22,29 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+
+To execute on console
+
+`irb -Ilib -rword_generator`
+
+For static number
+
+run `WordGenerator::Combinator.new(6686787825).generate`
+
+To read input from console
+
+run `WordGenerator::NumberToWord.new.combinatons`
+
+
+For Benchmark
+
+```ruby
+  require 'benchmark'
+
+  Benchmark.bm do |x|
+    x.report {WordGenerator::Combinator.new(6686787825).generate}
+  end
+```
 
 ## Development
 

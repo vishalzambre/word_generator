@@ -1,12 +1,24 @@
 require "word_generator/version"
-require 'csv'
+require "word_generator/combinator"
+require "word_generator/number_to_word"
 
 module WordGenerator
   class Error < StandardError; end
 
-  WORD_IN_LENGTH = 3.freeze
-  DICTIONARY = CSV.read('./lib/word_generator/dictionary_lookup/dictionary.csv')
-                    .flatten.reject {|word| word.length < WORD_IN_LENGTH }
+  WORD_MIN_LENGTH = 3.freeze
+  WORD_MAX_LENGTH = 10.freeze
+
+  def dictionary
+    @_dictionary ||= begin
+      _dictionary = {}
+        File.foreach("./lib/word_generator/dictionary_lookup/dictionary.txt") do |word|
+          word = word.chop.to_s.downcase
+          _dictionary[word.length] ||= []
+          _dictionary[word.length] << word
+        end
+      _dictionary
+    end
+  end
 
   def letters
     {
@@ -21,17 +33,7 @@ module WordGenerator
     }.freeze
   end
 
-  def generate_word
-    numbers = 6686787825.digits.reverse
-    characters = numbers.map { |digit| letters[digit] }
-    characters.inject(&:product).map do |word|
-      word = word.flatten.join.upcase
-      DICTIONARY.map do |_word|
-          word[_word]
-      end.compact
-    end
-  end
-
-  def gets
+  def valid?(_number)
+    _number.to_s.gsub(/0|1/, '').length == WORD_MAX_LENGTH
   end
 end
