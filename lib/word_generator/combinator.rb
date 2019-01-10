@@ -10,7 +10,6 @@ module WordGenerator
 
     # Generate possible combination from dictionary
     def generate
-      time_start = Time.now()
       digits = number.to_i.digits.reverse
       characters = digits.map { |digit| letters[digit] }
 
@@ -35,8 +34,6 @@ module WordGenerator
       complete_word = characters.shift.product(*characters).map(&:join) & dictionary[WORD_MAX_LENGTH]
       possible_combinations << complete_word if complete_word.any?
 
-      time_end = Time.now()
-      puts "Time #{time_end.to_f - time_start.to_f}"
       possible_combinations
     end
   end
