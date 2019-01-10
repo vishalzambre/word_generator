@@ -35,6 +35,42 @@ To read input from console
 
 run `WordGenerator::NumberToWord.new.combinatons`
 
+OR
+
+Perform following steps after clone
+
+Change directory to gem
+
+`cd word_generator`
+
+and follow step below :
+
+```
+gem install ./word_generator-0.1.0.gem
+
+irb
+
+require 'word_generator'
+
+WordGenerator::Combinator.new(6686787825).generate
+```
+
+
+```
+➜  word_generator git:(master) gem install ./word_generator-0.1.0.gem
+Successfully installed word_generator-0.1.0
+Parsing documentation for word_generator-0.1.0
+Installing ri documentation for word_generator-0.1.0
+Done installing documentation for word_generator after 122 seconds
+1 gem installed
+➜  word_generator git:(master) ✗ irb
+2.6.0 :001 > require 'word_generator'
+ => true
+2.6.0 :002 > WordGenerator::Combinator.new(6686787825).generate
+ => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
+2.6.0 :003 >
+```
+
 Output with time
 ```
 2.6.0 :001 > WordGenerator::Combinator.new(6686787825).generate
