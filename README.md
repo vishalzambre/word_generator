@@ -1,125 +1,80 @@
 # WordGenerator
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/word_generator`. To experiment with that code, run `bin/console` for an interactive prompt.
+Given a 10 digit phone number, it return all possible words or combination of words from the provided dictionary, that can be mapped back as a whole to the number. With this we can generate numbers like 1-800-motortruck which is easier to remember then 1-800-6686787825
 
-TODO: Delete this and the text above, and describe your gem
+The phone number mapping to letters is as follows:
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'word_generator'
+```
+2 = a b c
+3 = d e f
+4 = g h i
+5 = j k l
+6 = m n o
+7 = p q r s
+8 = t u v
+9 = w x y z
 ```
 
-And then execute:
+## Prerequisite
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install word_generator
+1. Ruby 2.0 and above
+2. TDD by Minitest
 
 ## Usage
 
+1. Clone word generator repository
 
-To execute on console
+  `git clone git@github.com:vishalzambre/word_generator.git`
 
-`irb -Ilib -rword_generator`
+2. Change directory to gem root
 
-For static number
+  `cd word_generator`
 
-run `WordGenerator::Combinator.new(6686787825).generate`
+3. Install gem from source
 
-To read input from console
+  `gem install ./word_generator-0.1.0.gem`
 
-run `WordGenerator::NumberToWord.new.combinatons`
+4. Open irb
 
-OR
+  `irb`
 
-Perform following steps after clone
+5. Require `word_generator`
 
-Change directory to gem
+  require `word_generator`
 
-`cd word_generator`
+6. Run combinator generate command with passing different number to generate matching words
 
-and follow step below :
+  `WordGenerator::Combinator.new(6686787825).generate`
 
+
+### Output
 ```
-gem install ./word_generator-0.1.0.gem
-
-irb
-
-require 'word_generator'
-
-WordGenerator::Combinator.new(6686787825).generate
-```
-
-
-```
-➜  word_generator git:(master) gem install ./word_generator-0.1.0.gem
-Successfully installed word_generator-0.1.0
-Parsing documentation for word_generator-0.1.0
-Installing ri documentation for word_generator-0.1.0
-Done installing documentation for word_generator after 122 seconds
-1 gem installed
-➜  word_generator git:(master) ✗ irb
-2.6.0 :001 > require 'word_generator'
- => true
 2.6.0 :002 > WordGenerator::Combinator.new(6686787825).generate
  => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
 2.6.0 :003 >
 ```
 
-Output with time
+### Output with execution time
+
 ```
 2.6.0 :001 > WordGenerator::Combinator.new(6686787825).generate
 Time 0.31345438957214355
  => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
-2.6.0 :002 > WordGenerator::Combinator.new(6686787825).generate
-Time 0.28060483932495117
- => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
-2.6.0 :003 > WordGenerator::Combinator.new(6686787825).generate
-Time 0.280820369720459
- => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
-2.6.0 :004 > WordGenerator::Combinator.new(6686787825).generate
-Time 0.2726399898529053
- => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
-2.6.0 :005 > WordGenerator::Combinator.new(6686787825).generate
-Time 0.24427533149719238
- => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
-2.6.0 :006 > WordGenerator::Combinator.new(6686787825).generate
-Time 0.2448413372039795
- => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
-2.6.0 :007 > WordGenerator::Combinator.new(6686787825).generate
-Time 0.242051362991333
- => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
-2.6.0 :008 > WordGenerator::Combinator.new(2282668687).generate
+2.6.0 :002 > WordGenerator::Combinator.new(2282668687).generate
 Time 0.28045105934143066
  => [["act", "amounts"], ["act", "contour"], ["bat", "amounts"], ["bat", "contour"], ["cat", "amounts"], ["cat", "contour"], ["acta", "mounts"], ["catamounts"]]
-2.6.0 :009 >
+2.6.0 :003 >
 
 ```
-For Benchmark
+
+### Benchmark
 
 ```ruby
   require 'benchmark'
-
   Benchmark.bm do |x|
     x.report {WordGenerator::Combinator.new(6686787825).generate}
   end
+
+  user     system      total        real
+  0.307793   0.026808   0.334601 (  0.394809)
 ```
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[vishalzambre]/word_generator. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
-## Code of Conduct
-
-Everyone interacting in the WordGenerator project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[vishalzambre]/word_generator/blob/master/CODE_OF_CONDUCT.md).
