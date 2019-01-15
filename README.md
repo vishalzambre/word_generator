@@ -30,41 +30,49 @@ The phone number mapping to letters is as follows:
 
   `cd word_generator`
 
-3. Install gem from source
+3. Run bundle
 
-  `gem install ./word_generator-0.1.0.gem`
+  `bundle install`
 
 4. Open irb
 
-  `irb`
+  `bundle console`
 
-5. Require `word_generator`
-
-  require `word_generator`
-
-6. Run combinator generate command with passing different number to generate matching words
+5. Run combinator generate command with passing different number to generate matching words
 
   `WordGenerator::Combinator.new(6686787825).generate`
 
+  OR
+
+  ```
+  number_to_word = WordGenerator::NumberToWord.new
+  number_to_word.combinations(6686787825)
+  ```
+
 
 ### Output
+1. First Test
+
 ```
 2.6.0 :002 > WordGenerator::Combinator.new(6686787825).generate
- => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
+ => [["mot", "opt", "puck"], ["mot", "opt", "ruck"], ["mot", "opt", "suck"], ["mot", "ort", "puck"], ["mot", "ort", "ruck"], ["mot", "ort", "suck"], ["not", "opt", "puck"], ["not", "opt", "ruck"], ["not", "opt", "suck"], ["not", "ort", "puck"], ["not", "ort", "ruck"], ["not", "ort", "suck"], ["oot", "opt", "puck"], ["oot", "opt", "ruck"], ["oot", "opt", "suck"], ["oot", "ort", "puck"], ["oot", "ort", "ruck"], ["oot", "ort", "suck"], ["noun", "struck"], ["onto", "struck"], ["noun", "pup", "taj"], ["noun", "pur", "taj"], ["noun", "pus", "taj"], ["noun", "sup", "taj"], ["noun", "suq", "taj"], ["onto", "pup", "taj"], ["onto", "pur", "taj"], ["onto", "pus", "taj"], ["onto", "sup", "taj"], ["onto", "suq", "taj"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
 2.6.0 :003 >
 ```
 
-### Output with execution time
+2. Second Test
 
 ```
-2.6.0 :001 > WordGenerator::Combinator.new(6686787825).generate
-Time 0.31345438957214355
- => [["noun", "struck"], ["onto", "struck"], ["motor", "truck"], ["motor", "usual"], ["nouns", "truck"], ["nouns", "usual"], ["motortruck"]]
-2.6.0 :002 > WordGenerator::Combinator.new(2282668687).generate
-Time 0.28045105934143066
- => [["act", "amounts"], ["act", "contour"], ["bat", "amounts"], ["bat", "contour"], ["cat", "amounts"], ["cat", "contour"], ["acta", "mounts"], ["catamounts"]]
-2.6.0 :003 >
+2.6.0 :003 > WordGenerator::Combinator.new(2282668687).generate
+ => [["act", "amounts"], ["act", "contour"], ["bat", "amounts"], ["bat", "contour"], ["cat", "amounts"], ["cat", "contour"], ["act", "boo", "tots"], ["act", "boo", "tour"], ["act", "con", "tots"], ["act", "con", "tour"], ["act", "coo", "tots"], ["act", "coo", "tour"], ["bat", "boo", "tots"], ["bat", "boo", "tour"], ["bat", "con", "tots"], ["bat", "con", "tour"], ["bat", "coo", "tots"], ["bat", "coo", "tour"], ["cat", "boo", "tots"], ["cat", "boo", "tour"], ["cat", "con", "tots"], ["cat", "con", "tour"], ["cat", "coo", "tots"], ["cat", "coo", "tour"], ["acta", "mounts"], ["acta", "mot", "mus"], ["acta", "mot", "nus"], ["acta", "mot", "our"], ["acta", "not", "mus"], ["acta", "not", "nus"], ["acta", "not", "our"], ["acta", "oot", "mus"], ["acta", "oot", "nus"], ["acta", "oot", "our"], ["catamounts"]]
+2.6.0 :004 >
 
+```
+
+2. Third Test
+
+```
+2.6.0 :005 > WordGenerator::Combinator.new(2272277444).generate.uniq
+ => [["aas", "aarrghh"], ["abs", "aarrghh"], ["bap", "aarrghh"], ["bar", "aarrghh"], ["bas", "aarrghh"], ["cap", "aarrghh"], ["car", "aarrghh"], ["aas", "aas", "sigh"], ["aas", "abs", "sigh"], ["aas", "bap", "sigh"], ["aas", "bar", "sigh"], ["aas", "bas", "sigh"], ["aas", "cap", "sigh"], ["aas", "car", "sigh"], ["abs", "aas", "sigh"], ["abs", "abs", "sigh"], ["abs", "bap", "sigh"], ["abs", "bar", "sigh"], ["abs", "bas", "sigh"], ["abs", "cap", "sigh"], ["abs", "car", "sigh"], ["bap", "aas", "sigh"], ["bap", "abs", "sigh"], ["bap", "bap", "sigh"], ["bap", "bar", "sigh"], ["bap", "bas", "sigh"], ["bap", "cap", "sigh"], ["bap", "car", "sigh"], ["bar", "aas", "sigh"], ["bar", "abs", "sigh"], ["bar", "bap", "sigh"], ["bar", "bar", "sigh"], ["bar", "bas", "sigh"], ["bar", "cap", "sigh"], ["bar", "car", "sigh"], ["bas", "aas", "sigh"], ["bas", "abs", "sigh"], ["bas", "bap", "sigh"], ["bas", "bar", "sigh"], ["bas", "bas", "sigh"], ["bas", "cap", "sigh"], ["bas", "car", "sigh"], ["cap", "aas", "sigh"], ["cap", "abs", "sigh"], ["cap", "bap", "sigh"], ["cap", "bar", "sigh"], ["cap", "bas", "sigh"], ["cap", "cap", "sigh"], ["cap", "car", "sigh"], ["car", "aas", "sigh"], ["car", "abs", "sigh"], ["car", "bap", "sigh"], ["car", "bar", "sigh"], ["car", "bas", "sigh"], ["car", "cap", "sigh"], ["car", "car", "sigh"], ["barb", "app", "ghi"], ["barb", "app", "gig"], ["barb", "app", "igg"], ["barb", "ars", "ghi"], ["barb", "ars", "gig"], ["barb", "ars", "igg"], ["barb", "asp", "ghi"], ["barb", "asp", "gig"], ["barb", "asp", "igg"], ["barb", "ass", "ghi"], ["barb", "ass", "gig"], ["barb", "ass", "igg"], ["barb", "brr", "ghi"], ["barb", "brr", "gig"], ["barb", "brr", "igg"], ["carb", "app", "ghi"], ["carb", "app", "gig"], ["carb", "app", "igg"], ["carb", "ars", "ghi"], ["carb", "ars", "gig"], ["carb", "ars", "igg"], ["carb", "asp", "ghi"], ["carb", "asp", "gig"], ["carb", "asp", "igg"], ["carb", "ass", "ghi"], ["carb", "ass", "gig"], ["carb", "ass", "igg"], ["carb", "brr", "ghi"], ["carb", "brr", "gig"], ["carb", "brr", "igg"], ["casa", "app", "ghi"], ["casa", "app", "gig"], ["casa", "app", "igg"], ["casa", "ars", "ghi"], ["casa", "ars", "gig"], ["casa", "ars", "igg"], ["casa", "asp", "ghi"], ["casa", "asp", "gig"], ["casa", "asp", "igg"], ["casa", "ass", "ghi"], ["casa", "ass", "gig"], ["casa", "ass", "igg"], ["casa", "brr", "ghi"], ["casa", "brr", "gig"], ["casa", "brr", "igg"], ["barcas", "sigh"], ["carcass", "ghi"], ["carcass", "gig"], ["carcass", "igg"]]
 ```
 
 ### Benchmark
@@ -72,9 +80,24 @@ Time 0.28045105934143066
 ```ruby
   require 'benchmark'
   Benchmark.bm do |x|
+    number_to_word = WordGenerator::NumberToWord.new
     x.report {WordGenerator::Combinator.new(6686787825).generate}
+    x.report {WordGenerator::Combinator.new(2282668687).generate}
+    x.report {WordGenerator::Combinator.new(2272277444).generate}
+
+    x.report {number_to_word.combinations(6686787825)}
+    x.report {number_to_word.combinations(2282668687)}
+    x.report {number_to_word.combinations(2272277444)}
+    x.report {number_to_word.combinations(6686787825)}
   end
 
-  user     system      total        real
-  0.307793   0.026808   0.334601 (  0.394809)
+     user     system      total        real
+   0.229325   0.000000   0.229325 (  0.229345)
+   0.225003   0.000000   0.225003 (  0.225020)
+   0.313700   0.000000   0.313700 (  0.313747)
+   0.260198   0.000000   0.260198 (  0.260216)
+   0.194499   0.000000   0.194499 (  0.194580)
+   0.314725   0.000000   0.314725 (  0.314746)
+   0.000010   0.000000   0.000010 (  0.000008)
+
 ```

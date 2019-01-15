@@ -1,40 +1,73 @@
 module WordGenerator
   class Combinator
-    include WordGenerator
     attr_reader :number
 
     def initialize(number)
       @number = number
-      raise '#{number} is invalid, Please re-enter 10 digit number without 0 & 1 inclusion' unless valid?(@number)
     end
 
     # Generate possible combination from dictionary
     def generate
+      split_digits.flat_map do |array_of_digits|
+        words = array_of_digits.map do |array_of_digit|
+          characters = array_of_digit.map { |digit| letters[digit] }
+          word = characters.shift.product(*characters).map(&:join)
+          word = word & dictionary[array_of_digit.length]
+        end
+        words.shift.product(*words).map { |word| word }
+      end.uniq
+    end
+
+    private
+
+    def split_digits
       digits = number.to_i.digits.reverse
-      characters = digits.map { |digit| letters[digit] }
 
-      # Start loop from 3 to 7 to avoid less than 3
-      possible_combinations = (WORD_MIN_LENGTH..(WORD_MAX_LENGTH - WORD_MIN_LENGTH)).flat_map do |length|
-        # Split characters in first and second combination based on start and end input
-        first_combination = characters[0..(length-1)]
-        second_combination = characters[length..-1]
-
-        # take first tuple and generate combination against array
-        first_combination = first_combination.shift.product(*first_combination).map(&:join)
-        second_combination = second_combination.shift.product(*second_combination).map(&:join)
-
-        # Get matching from dictionary
-        first_combination = first_combination & dictionary[length]
-        second_combination = second_combination & dictionary[WORD_MAX_LENGTH - length]
-
-        # Combine Array
-        first_combination.product(second_combination).map { |word| word }
+      words = ((WORD_MIN_LENGTH - 1)..(WORD_MAX_LENGTH - WORD_MIN_LENGTH - 1)).flat_map do |length|
+        words = []
+        token_start = 0
+        token_end = length
+        words << [digits[token_start..token_end], digits[(token_end + 1)..WORD_MAX_LENGTH]]
+        word = []
+        begin
+          word << digits[token_start..token_end]
+          token_start = token_end + 1
+          if (digits[token_start..WORD_MAX_LENGTH].to_a.length / WORD_MIN_LENGTH) <= 1
+            token_end = WORD_MAX_LENGTH
+          else
+            token_end += WORD_MIN_LENGTH
+          end
+        end while token_start < WORD_MAX_LENGTH
+        words << word
+        words
       end
-      # Find for complete 10 character word
-      complete_word = characters.shift.product(*characters).map(&:join) & dictionary[WORD_MAX_LENGTH]
-      possible_combinations << complete_word if complete_word.any?
+      words << [digits]
+      words.uniq
+    end
 
-      possible_combinations
+    def dictionary
+      @_dictionary ||= begin
+        _dictionary = {}
+          File.foreach("./lib/word_generator/dictionary_lookup/dictionary.txt") do |word|
+            word = word.chop.to_s.downcase
+            _dictionary[word.length] ||= []
+            _dictionary[word.length] << word
+          end
+        _dictionary
+      end
+    end
+
+    def letters
+      {
+        2 => ['a', 'b', 'c'],
+        3 => ['d', 'e', 'f'],
+        4 => ['g', 'h', 'i'],
+        5 => ['j', 'k', 'l'],
+        6 => ['m', 'n', 'o'],
+        7 => ['p', 'q', 'r', 's'],
+        8 => ['t', 'u', 'v'],
+        9 => ['w', 'x', 'y', 'z'],
+      }.freeze
     end
   end
 end
