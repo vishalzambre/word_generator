@@ -42,13 +42,6 @@ The phone number mapping to letters is as follows:
 
   `WordGenerator::Combinator.new(6686787825).generate`
 
-  OR
-
-  ```
-  number_to_word = WordGenerator::NumberToWord.new
-  number_to_word.combinations(6686787825)
-  ```
-
 
 ### Output
 1. First Test
@@ -80,24 +73,29 @@ The phone number mapping to letters is as follows:
 ```ruby
   require 'benchmark'
   Benchmark.bm do |x|
-    number_to_word = WordGenerator::NumberToWord.new
     x.report {WordGenerator::Combinator.new(6686787825).generate}
     x.report {WordGenerator::Combinator.new(2282668687).generate}
     x.report {WordGenerator::Combinator.new(2272277444).generate}
-
-    x.report {number_to_word.combinations(6686787825)}
-    x.report {number_to_word.combinations(2282668687)}
-    x.report {number_to_word.combinations(2272277444)}
-    x.report {number_to_word.combinations(6686787825)}
   end
 
      user     system      total        real
-   0.229325   0.000000   0.229325 (  0.229345)
-   0.225003   0.000000   0.225003 (  0.225020)
-   0.313700   0.000000   0.313700 (  0.313747)
-   0.260198   0.000000   0.260198 (  0.260216)
-   0.194499   0.000000   0.194499 (  0.194580)
-   0.314725   0.000000   0.314725 (  0.314746)
-   0.000010   0.000000   0.000010 (  0.000008)
+    0.306691   0.020015   0.326706 (  0.326714)
+    0.203320   0.015954   0.219274 (  0.219286)
+    0.306749   0.000333   0.307082 (  0.307103)
 
 ```
+
+
+### NOTE
+
+First approach I thought to just add third_combination same as first_combination and second_combination to same logic but then it was not able to work if we change number limit and min word limit, Hence I spend more time and updated logic to dynamic generation as below
+
+Here I updated old logic to work with dynamic combination generator, earlier logic was generating only two and complete matching words combination. But now I modified it to work such as it should generate any possible words combinations like in our example max word length 10 and min word is 3 so it will generate 3 combination, 2 combination & 1 combination same if we change min word 2 it will generate 4 & 5 combinations and so on.
+
+`Current logic has power/ability to generate any kind of word generation from number in term of word max and min length`
+
+And also I optimized generation time and memory usage by splitting numbers into possible combination at small level and then used characters set with smaller array
+
+Also I removed number_to_word file as we don't need input from console by `gets` and we can pass input to combinator. Combinator we can use initialize anywhere in project after installing gem.
+
+I've created it as gem so that you can install it in project and can use it. And as best practice to create any lib/gem code should be wrapped in common namespace to avoid current project same file name conflicts. Hence I wrapped code under `WordGenerator` module although there no code in module, but it is nice to have it and will helpful to extend this gem in term of new generator of set of rules.

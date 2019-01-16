@@ -12,6 +12,11 @@ class WordGenerator::CombinatorTest < Minitest::Test
     )
   end
 
+  def test_should_raise_exception_on_invalid_number
+    assert_raises RuntimeError do
+      WordGenerator::Combinator.new(8275340747)
+    end
+  end
 
   def test_that_dictionary_is_loaded
     assert @combinator.send(:dictionary).any?
